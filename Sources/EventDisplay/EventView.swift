@@ -17,7 +17,7 @@ struct EventView: View {
             ))
                 .monospacedDigit()
                 .foregroundColor(.green)
-
+            
             Divider()
                 .background(Color.green)
                 .frame(width:3)
@@ -42,6 +42,8 @@ struct EventView: View {
                     }
                 }
             }
+            
+            Spacer()
         }
         .font(.monospaced(.body)())
     }
@@ -49,6 +51,11 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var previews: some View {
-        EventView(event: .test)
+        VStack {
+            EventView(event: .test)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
+                .background(.black)
+        }
     }
 }

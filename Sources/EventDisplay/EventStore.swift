@@ -10,13 +10,15 @@ import Foundation
 public final class EventStore: ObservableObject {
     @Published var events: [Event] = []
     
+    public static let shared = EventStore()
+    
     public func logEvent(_ event: Event) {
         events.append(event)
     }
     
-    init() {}
+    public init() {}
     
-    init(events: [Event]) {
+    public init(events: [Event]) {
         self.events = events
     }
 }

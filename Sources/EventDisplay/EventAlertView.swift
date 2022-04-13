@@ -17,7 +17,7 @@ struct EventAlertView: View {
         .padding(12)
         .background(Color.black)
         .cornerRadius(8)
-        .frame(height: 30, alignment: .top)
+        .fixedSize(horizontal: false, vertical: true)
     }
     
 }

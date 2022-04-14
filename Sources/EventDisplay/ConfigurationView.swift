@@ -20,6 +20,8 @@ public struct ConfigurationView: View {
     
     @EnvironmentObject var eventsStore: EventStore
     
+    public init() {}
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Toggle(isOn: $showEventsOnTap) {

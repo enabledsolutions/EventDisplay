@@ -22,8 +22,5 @@ let package = Package(
         .target(
             name: "EventDisplay",
             dependencies: []),
-        .testTarget(
-            name: "EventDisplayTests",
-            dependencies: ["EventDisplay"]),
     ]
 )

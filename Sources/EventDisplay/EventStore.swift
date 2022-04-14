@@ -11,7 +11,7 @@ import SwiftUI
 
 public final class EventStore: ObservableObject {
     @Published var events: [Event] = []
-    
+
     var sortedEvents: [Event] {
         events.sorted { event1, event2 in
             event2.date < event1.date

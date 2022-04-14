@@ -8,8 +8,8 @@
 import SwiftUI
 
 extension Event {
-    static let test = Event(date: Date(), type: .touch, name: "Test", params: ["value": true, "anotherOne": 12345, "anotherthing": "string"])
-    static let test2 = Event(date: Date(timeIntervalSince1970: 344000), type: .special, name: "Test2", params: ["exists": false])
+    static let test = Event(date: Date(), type: .interaction, name: "Test", params: ["value": true, "anotherOne": 12345, "anotherthing": "string"])
+    static let test2 = Event(date: Date(timeIntervalSince1970: 344000), type: .user, name: "Test2", params: ["exists": false])
     static let test3 = Event(date: Date(timeIntervalSince1970: 123456783), type: .other, name: "Test3", params: nil)
     static let test4 = Event(date: Date(timeIntervalSince1970: 426347364), type: .view, name: "Test4", params: nil)
     static let test5 = Event(date: Date(timeIntervalSince1970: 0), type: .location, name: "Test5", params: nil)

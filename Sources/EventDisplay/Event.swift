@@ -9,10 +9,10 @@ import Foundation
 
 public struct Event {
     public enum Kind {
-        case touch
+        case interaction
         case view
         case location
-        case special
+        case user
         case other
     }
     
@@ -21,7 +21,7 @@ public struct Event {
     public let name: String
     public let params: [String: Any]?
     
-    public init(date: Date = Date(), type: Kind = .touch, name: String, params: [String:Any]? = nil) {
+    public init(date: Date = Date(), type: Kind = .interaction, name: String, params: [String:Any]? = nil) {
         self.date = date        
         self.name = name
         self.type = type
@@ -32,16 +32,16 @@ public struct Event {
 extension Event.Kind {
     var systemImageName: String {
         switch self {
-        case .touch:
+        case .interaction:
             return "hand.tap.fill"
         case .view:
             return "eye.fill"
         case .location:
             return "location.fill"
-        case .special:
-            return "star.fill"
+        case .user:
+            return "person.fill"
         case .other:
-            return "circle"
+            return "star.circle.fill"
         }
     }
 }

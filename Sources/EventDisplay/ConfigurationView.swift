@@ -25,7 +25,7 @@ public struct ConfigurationView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Toggle(isOn: $showEventsOnTap) {
-                Text("Show Events On Tap")
+                Text("Show Events on Tap")
                     .font(.monospaced(.body)())
                     .foregroundColor(.green)
             }

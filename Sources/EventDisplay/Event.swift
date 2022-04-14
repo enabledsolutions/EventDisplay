@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Event {
-    enum Kind {
+    public enum Kind {
         case touch
         case view
         case location
@@ -16,10 +16,17 @@ public struct Event {
         case other
     }
     
-    let date: Date
-    let type: Kind
-    let name: String
-    let params: [String: Any]?
+    public let date: Date
+    public let type: Kind
+    public let name: String
+    public let params: [String: Any]?
+    
+    public init(date: Date = Date(), type: Kind = .touch, name: String, params: [String:Any]? = nil) {
+        self.date = date        
+        self.name = name
+        self.type = type
+        self.params = params
+    }
 }
 
 extension Event.Kind {

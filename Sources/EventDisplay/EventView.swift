@@ -33,7 +33,7 @@ struct EventView: View {
                 
                 if let params = event.params {
                     VStack(alignment: .leading) {
-                        ForEach(Array(params.keys), id: \.self) { key in
+                        ForEach(Array(params.keys.sorted()), id: \.self) { key in
                             Text("\(key) = \(String(describing: params[key]!))")
                                 .font(.monospaced(.caption)())
                                 .foregroundColor(.green)

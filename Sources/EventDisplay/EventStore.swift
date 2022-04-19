@@ -9,6 +9,14 @@ import Foundation
 import UIKit
 import SwiftUI
 
+class SelfSizingHostingController<Content>: UIHostingController<Content> where Content: View {
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.view.invalidateIntrinsicContentSize()
+    }
+}
+
 public final class EventStore: ObservableObject {
     @Published var events: [Event] = []
 
@@ -18,42 +26,15 @@ public final class EventStore: ObservableObject {
         }
     }
     
-    public var windowForEventAlerts: UIWindow?
-    
+    public var displayEvent: ((Event) -> ())?
+
     public static let shared = EventStore()
     
     public func logEvent(_ event: Event) {
         events.append(event)
-        
-        if let window = windowForEventAlerts {
-            //Create an event view
-            let eventView = EventAlertView(event: event)
-            let hostingController = UIHostingController(rootView: eventView)
-            window.addSubview(hostingController.view)
-            hostingController.view.backgroundColor = .red
-            
-            hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                hostingController.view.leadingAnchor.constraint(equalTo: window.leadingAnchor, constant: 30),
-                hostingController.view.topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.topAnchor),
-                hostingController.view.trailingAnchor.constraint(equalTo: window.trailingAnchor, constant: -30),
-            ])
-                        
-            //Present and remove the alert
-            hostingController.view.transform = CGAffineTransform(translationX: 0, y: -300)
-            
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.86, initialSpringVelocity: 1.0, animations: {
-                hostingController.view.transform = .identity
-            }) { _ in
-                UIView.animate(withDuration: 0.35, delay: 1.6, animations: {
-                    hostingController.view.transform = CGAffineTransform(translationX: 0, y: -300)
-                }) { _ in
-                    hostingController.view.removeFromSuperview()
-                }
-            }
-            
-            hostingController.view.sizeToFit()
-            
+  
+        if UserDefaults.standard.bool(forKey: "showEventsOnTap") {
+            dispatchEventForDisplay(event)
         }
     }
     
@@ -61,5 +42,25 @@ public final class EventStore: ObservableObject {
     
     public init(events: [Event]) {
         self.events = events
+    }
+    
+    //MARK: - Event Display Dispatch
+    
+    private let queue = DispatchQueue(label: "myraa.analytcs.display.events", qos: .userInteractive)
+    private let semaphore = DispatchSemaphore(value: 1)
+    
+    private func dispatchEventForDisplay(_ event: Event) {
+        queue.async {
+            self.semaphore.wait()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.03) {
+                self.displayEvent?(event)
+                
+                //After 1 second, allow next events through
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.semaphore.signal()
+                }
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@ public struct Event {
 }
 
 extension Event.Kind {
-    var systemImageName: String {
+    public var systemImageName: String {
         switch self {
         case .interaction:
             return "hand.tap.fill"

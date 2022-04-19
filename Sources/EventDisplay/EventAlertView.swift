@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EventAlertView: View {
     var event: Event
+    
     var body: some View {
         VStack {
             EventView(event: event)
@@ -18,8 +19,7 @@ struct EventAlertView: View {
         .background(Color.black)
         .cornerRadius(8)
         .fixedSize(horizontal: false, vertical: true)
-    }
-    
+    }    
 }
 
 struct EventAlertView_Previews: PreviewProvider {

@@ -16,7 +16,7 @@ extension Event {
 }
 
 public struct ConfigurationView: View {
-    @AppStorage("showEventsOnTap", store: .standard) var showEventsOnTap = true
+    @AppStorage("showEventsOnTap") var showEventsOnTap = false
     
     @EnvironmentObject var eventsStore: EventStore
     

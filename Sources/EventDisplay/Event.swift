@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Event {
+public struct Event: Identifiable {
     public enum Kind {
         case interaction
         case view
@@ -20,15 +20,18 @@ public struct Event {
     public let type: Kind
     public let name: String
     public let params: [String: Any]?
-    public let id: String
     
     public init(date: Date = Date(), type: Kind = .interaction, name: String, params: [String:Any]? = nil) {
         self.date = date        
         self.name = name
         self.type = type
         self.params = params
-        self.id = UUID().uuidString
     }
+    
+    public var id: String {
+        return self.name + self.date.ISO8601Format()
+    }
+    
 }
 
 extension Event.Kind {

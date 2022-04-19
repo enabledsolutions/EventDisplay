@@ -11,11 +11,7 @@ struct EventView: View {
     let event: Event
     var body: some View {
         HStack(alignment: .top) {
-            Text(event.date.formatted(Date.FormatStyle()
-                .hour(.twoDigits(amPM: .abbreviated))
-                .minute(.twoDigits)
-                .second(.twoDigits)
-            ))
+            Text(event.date.formatted(date: .omitted, time: .standard))
                 .monospacedDigit()
                 .foregroundColor(.green)
             

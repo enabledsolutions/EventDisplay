@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Event {
+public struct Event: Identifiable {
     public enum Kind {
         case interaction
         case view
@@ -16,6 +16,8 @@ public struct Event {
         case other
     }
     
+    public let id = UUID()
+
     public let date: Date
     public let type: Kind
     public let name: String

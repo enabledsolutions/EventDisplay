@@ -42,7 +42,7 @@ public struct ConfigurationView: View {
             
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(eventsStore.sortedEvents, id: \.name) { event in
+                    ForEach(eventsStore.sortedEvents) { event in
                         EventView(event: event)
                     }
                     .padding([.top, .bottom])

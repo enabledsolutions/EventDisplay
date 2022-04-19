@@ -14,6 +14,7 @@ struct EventView: View {
             Text(event.date.formatted(Date.FormatStyle()
                 .hour(.twoDigits(amPM: .abbreviated))
                 .minute(.twoDigits)
+                .second(.twoDigits)
             ))
                 .monospacedDigit()
                 .foregroundColor(.green)

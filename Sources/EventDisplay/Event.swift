@@ -16,6 +16,8 @@ public struct Event: Identifiable {
         case other
     }
     
+    public let id = UUID()
+
     public let date: Date
     public let type: Kind
     public let name: String
@@ -27,11 +29,6 @@ public struct Event: Identifiable {
         self.type = type
         self.params = params
     }
-    
-    public var id: String {
-        return self.name + self.date.ISO8601Format()
-    }
-    
 }
 
 extension Event.Kind {

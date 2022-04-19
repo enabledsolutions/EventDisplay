@@ -39,7 +39,7 @@ extension Event.Kind {
         case .location:
             return "location.fill"
         case .user:
-            return "person.fill"
+            return "person.circle.fill"
         case .other:
             return "star.circle.fill"
         }

@@ -26,46 +26,33 @@ public final class EventStore: ObservableObject {
         events.append(event)
         
         if let window = windowForEventAlerts {
-            let alertView = UIView()
-            alertView.backgroundColor = .red
-            alertView.layer.cornerRadius = 8
-            alertView.layer.cornerCurve = .continuous
-            
-            window.addSubview(alertView)
-            
-            alertView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                alertView.leadingAnchor.constraint(equalTo: window.leadingAnchor, constant: 30),
-                alertView.topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.topAnchor),
-                alertView.trailingAnchor.constraint(equalTo: window.trailingAnchor, constant: -30),
-            ])
-            
             //Create an event view
-            let eventView = EventView(event: event)
+            let eventView = EventAlertView(event: event)
             let hostingController = UIHostingController(rootView: eventView)
-            alertView.addSubview(hostingController.view)
-
+            window.addSubview(hostingController.view)
+            hostingController.view.backgroundColor = .red
+            
             hostingController.view.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                hostingController.view.leadingAnchor.constraint(equalTo: alertView.leadingAnchor),
-                hostingController.view.topAnchor.constraint(equalTo: alertView.topAnchor),
-                hostingController.view.trailingAnchor.constraint(equalTo: alertView.trailingAnchor),
-                hostingController.view.bottomAnchor.constraint(equalTo: alertView.bottomAnchor)
+                hostingController.view.leadingAnchor.constraint(equalTo: window.leadingAnchor, constant: 30),
+                hostingController.view.topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.topAnchor),
+                hostingController.view.trailingAnchor.constraint(equalTo: window.trailingAnchor, constant: -30),
             ])
                         
             //Present and remove the alert
-            alertView.transform = CGAffineTransform(translationX: 0, y: -300)
+            hostingController.view.transform = CGAffineTransform(translationX: 0, y: -300)
             
             UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.86, initialSpringVelocity: 1.0, animations: {
-                alertView.transform = .identity
+                hostingController.view.transform = .identity
             }) { _ in
                 UIView.animate(withDuration: 0.35, delay: 1.6, animations: {
-                    alertView.transform = CGAffineTransform(translationX: 0, y: -300)
+                    hostingController.view.transform = CGAffineTransform(translationX: 0, y: -300)
                 }) { _ in
-                    alertView.removeFromSuperview()
+                    hostingController.view.removeFromSuperview()
                 }
             }
+            
+            hostingController.view.sizeToFit()
             
         }
     }
